@@ -36,3 +36,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 Sauvegarde de l'historique car localstorge qui va nous permettre de sauvegarder nos echange avec le chat bot 
 
 ## fine tuning
+
+Le fine-tuning permet de cibler les réponses d'une IA. Par exemple, sans entraînement spécifique, si vous demandez à une IA sur un site de vente de perceuses une marque de chaussures, elle pourrait répondre par des marques comme Nike ou Adidas. Cependant, avec un tableau de données d'entraînement, on peut indiquer à l'IA de répondre uniquement dans le domaine des perceuses. Dans ce cas, elle indiquera simplement que la demande ne correspond pas à son domaine, qui est axé sur les perceuses.
+
+## Gemini et ses reponse
+
+J'ai donné comme instruction de répondre de manière familière et simplement, aussi je lui ai donné comme reponse des suggestion de manga . Je lui ai donné une instruction.

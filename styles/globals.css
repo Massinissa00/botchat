@@ -4,41 +4,66 @@
   --user-bg-color: #e1f5fe;
   --bot-text-color: #333;
   --user-text-color: #333;
-  --chat-bg-color: #e0f7fa;
+  --chat-bg-color: #f5f5f5;
   --border-radius: 20px;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-body {
-  background-color: #e0f7fa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
 
 .chat-container {
   width: 100%;
-  max-width: 800px;
-  background-color: #fff;
+  max-width: 600px;
+  height: 80vh; /* Limite la hauteur de la boîte de discussion */
+  background-color: var(--chat-bg-color);
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   padding: 20px;
+  overflow: hidden;
 }
 
 .chat-messages {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 20px;
-  max-height: 400px; /* Limite la hauteur de l'historique */
-  overflow-y: auto;  /* Ajoute la barre de défilement */
-  padding-right: 10px; /* Pour que la barre de défilement ne cache pas le texte */
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 10px; /* Ajoute du padding sur les côtés */
 }
+
 
 .message {
   display: flex;
@@ -46,10 +71,10 @@ body {
 }
 
 .message-bot, .message-user {
+  max-width: 75%; /* Limite la largeur des messages */
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  max-width: 80%;
 }
 
 .message-bot {
@@ -65,8 +90,10 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--primary-color);
+  border: 2px solid var(--foreground);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 .message-bot .avatar {
   background-image: url('/images/bot-avatar.png');
@@ -101,7 +128,7 @@ body {
 form {
   display: flex;
   gap: 10px;
-  margin-top: auto;
+  padding-top: 10px;
 }
 
 input[type="text"] {
@@ -126,9 +153,11 @@ button {
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.2s;
 }
 
 button:hover {
   background-color: #005bb5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
