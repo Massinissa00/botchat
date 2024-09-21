@@ -1,16 +1,27 @@
-// pages/index.js
-import { useState } from 'react';
-import dotenv from 'dotenv';
-
-dotenv.config(); // Assurez-vous que les variables d'environnement sont chargées
-
-const API_URL = '/api/generate'; // URL de l'API que nous allons créer
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [history, setHistory] = useState([]);
+
+  // Charger l'historique à partir de localStorage lors du premier rendu
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('interactionHistory');
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
+  // Sauvegarder l'historique dans localStorage
+  const saveToHistory = (newPrompt, newResponse) => {
+    const newInteraction = { prompt: newPrompt, response: newResponse };
+    const updatedHistory = [...history, newInteraction];
+    setHistory(updatedHistory);
+    localStorage.setItem('interactionHistory', JSON.stringify(updatedHistory));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +30,7 @@ export default function Home() {
     setResponse('');
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +44,7 @@ export default function Home() {
 
       const data = await res.json();
       setResponse(data.response);
+      saveToHistory(prompt, data.response); // Sauvegarder dans l'historique
     } catch (err) {
       setError(err.message);
     } finally {
@@ -40,16 +52,21 @@ export default function Home() {
     }
   };
 
+  const clearHistory = () => {
+    localStorage.removeItem('interactionHistory');
+    setHistory([]);
+  };
+
   return (
     <div>
-      <h1>Interface d'Interaction avec l'API Gemini</h1>
+      <h1>Chatbot Manga</h1>
       <form onSubmit={handleSubmit}>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           rows="4"
           cols="50"
-          placeholder="Entrez votre prompt ici..."
+          placeholder="Posez une question sur un manga..."
         />
         <br />
         <button type="submit" disabled={loading}>
@@ -57,7 +74,32 @@ export default function Home() {
         </button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {response && <div><h2>Réponse du modèle :</h2><p>{response}</p></div>}
+      {response && (
+        <div>
+          <h2>Réponse :</h2>
+          <p>{response}</p>
+        </div>
+      )}
+
+      {/* Historique des interactions */}
+      <div>
+        <h2>Historique</h2>
+        {history.length > 0 ? (
+          <div>
+            <button onClick={clearHistory}>Effacer l'historique</button>
+            <ul>
+              {history.map((item, index) => (
+                <li key={index}>
+                  <strong>Prompt :</strong> {item.prompt} <br />
+                  <strong>Réponse :</strong> {item.response}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p>Aucun historique disponible</p>
+        )}
+      </div>
     </div>
   );
 }

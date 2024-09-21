@@ -1,23 +1,26 @@
-// pages/api/generate.js
-import { GoogleGenerativeAI } from '@google/generative-ai';
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
+async function handler(req, res) {
+  if (req.method === "POST") {
     const { prompt } = req.body;
-    
-    try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-      const result = await model.generateContent(prompt);
-      const response = await result.response.text();
+    const MANGA_INSTRUCTION = 'Réponds uniquement sur des sujets liés aux mangas, en étant concis et amical. répond directement en proposant des mangas';
 
-      res.status(200).json({ response });
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent([`${MANGA_INSTRUCTION} ${prompt}`]);
+      const responseText = result.response.text().replace(/\*/g, '').trim();
+
+      res.status(200).json({ response: responseText });
     } catch (error) {
-      res.status(500).json({ error: 'Erreur lors de la génération de contenu' });
+      console.error("Erreur lors de la connexion à Gemini :", error);
+      res.status(500).json({ error: "Erreur lors de la génération de contenu" });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Méthode ${req.method} non autorisée`);
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+
+export default handler;
