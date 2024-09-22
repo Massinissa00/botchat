@@ -42,3 +42,7 @@ Le fine-tuning permet de cibler les réponses d'une IA. Par exemple, sans entra�
 ## Gemini et ses reponse
 
 J'ai donné comme instruction de répondre de manière familière et simplement, aussi je lui ai donné comme reponse des suggestion de manga . Je lui ai donné une instruction.
+
+## Erreur Rencontrer 
+
+En terme d'erreur si on pose une question trop vite au bot cela va ramner a une erreur mais une fois charger a nouveau la page cela disparait et quand on pose trop de question la page descend toute seul mais seulement quand l'historique est plein.
