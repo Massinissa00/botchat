@@ -46,3 +46,11 @@ J'ai donné comme instruction de répondre de manière familière et simplement,
 ## Erreur Rencontrer 
 
 En terme d'erreur si on pose une question trop vite au bot cela va ramner a une erreur mais une fois charger a nouveau la page cela disparait et quand on pose trop de question la page descend toute seul mais seulement quand l'historique est plein.
+
+## Explication du projet 
+
+j'ai develloper uen ia avec une base de gemini pour quelle puisse me repondre sur les mangas j'y est ajouter un prompt et le fine tuning par la suite je lui ai appliquer des consignes pour quelle ne reponde exclusivement au sujet choisi et de maniere amical, j'ai choisi ce sujet en particulier car il est assez large de choix et permet a l'ia d'y repondre de maniere brievement pour les solutions apporter sont la faciliter et les reponse simple que l'ia va donner, les resultats sont plus tôt pas mal elle repond clairement au questions poser, pour les perspectives d'améliorations il faut ameliorer le css pour lui donner une meilleur verison de chatbot et integrer les autres forme de manga tel que les animes et light novel.
+
+## Les techonologies Utiliser
+
+Pour les technologie utiliser nous avons L'API de Gemini qui va nous permettre de crée notre ia ensuite j'ai utliser Next.js et react pour faire le travail j'ai utliser Next.js pour une gestion centraliser et il permet de créer des applications web rapide et optimiser pour le SEO et j'ai tuliser React pour une gestion efficace et dynamiques.
